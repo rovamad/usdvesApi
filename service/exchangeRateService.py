@@ -1,8 +1,5 @@
-import requests
-import datetime as dt
-import pytz
-from budaService import budaService as buda
-from localbitcoinsService import localbitcoinsService as localbit
+from service.budaService import budaService as buda
+from service.localbitcoinsService import localbitcoinsService as localbit
 from flask import jsonify
 
 class exchangeRateService:
@@ -31,12 +28,7 @@ class exchangeRateService:
 			result = []
 			for bank in bankList:
 				bankListPrice = localbit.createBankList(bank, minAmount, ad_list)
-				result.append({ bank: float(bankListPrice) / float(budaPrice) })
-
-			#bod = localbit.createBankList('Banesco', 10000000, ad_list)
-
-			#print ('Banesco mayor temp_price', bod)
-
-			#print ('la tasa es ', (float(bod) / float(budaPrice)))
+				if (bankListPrice != None):
+					result.append({ bank: float(bankListPrice) / float(budaPrice) })
 
 			return jsonify(result)
