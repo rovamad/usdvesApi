@@ -13,6 +13,6 @@ class budaService:
 		})
 
 		response_json = response.json()
-		print(response_json['quotation']['quote_exchanged'][0])
+		print('Buda.com BTC in CLP price is ' + response_json['quotation']['quote_exchanged'][0])
 
 		return response_json['quotation']['quote_exchanged'][0]
