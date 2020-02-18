@@ -28,5 +28,4 @@ class ExchangeRateController(Resource):
 api.add_resource(ExchangeRateController, '/clpves') # Route_1
 
 if __name__ == '__main__':
-    #ExchangeRateController().clpves()
     app.run(debug=True)

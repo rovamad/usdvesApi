@@ -7,12 +7,14 @@ class budaService:
 		market = 'btc-clp'
 		url = f'https://www.buda.com/api/v2/markets/{market}/quotations'
 
+		amount = 0.1
 		response = requests.post(url, json={
 			'type': 'bid_given_size',
-			'amount': 1,
+			'amount': amount,
 		})
 
 		response_json = response.json()
-		print('Buda.com BTC in CLP price is ' + response_json['quotation']['quote_exchanged'][0])
+		price = (float(response_json['quotation']['quote_exchanged'][0]) / amount) * 1.012
+		print('Buda.com BTC in CLP price is ' + str(price))
 
-		return response_json['quotation']['quote_exchanged'][0]
+		return price
