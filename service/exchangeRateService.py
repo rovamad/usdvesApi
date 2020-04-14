@@ -5,14 +5,16 @@ from flask import jsonify
 class exchangeRateService:
 
 	@classmethod
-	def calculator(self, bankList, minAmount):
-		budaPrice = buda.budaPrice()
-		localCLPPrice = localbit.getCLPPage()
-		print('Localbitcoin BTC in CLP price is ' + localCLPPrice)
-		betterPrice = localCLPPrice
+	def calculator(self, bankList, minAmount, market):
+		budaPrice = buda.budaPrice(market)
+		localMarketPrice = localbit.getLocalMarketPage(market)
+		print('Localbitcoin BTC in ' + market +' price is ' + str(localMarketPrice))
+		betterPrice = localMarketPrice
+		source = f'Localbitcoins {market}'
 
-		if float(budaPrice) < float(localCLPPrice):
+		if float(budaPrice) < float(localMarketPrice):
 			betterPrice = budaPrice
+			source = f'Buda.com btc-{market}'
 
 		print('betterPrice is ' + str(betterPrice))
 		page = 1
@@ -33,9 +35,22 @@ class exchangeRateService:
 				page = next_page['page']
 
 			result = []
+			bankPriceAcumulator = 0
+			bankFound = 0
 			for bank in bankList:
-				bankListPrice = localbit.createBankList(bank, minAmount, ad_list)
+				bankListPrice, specific_ad = localbit.createBankList(bank, minAmount, ad_list)
 				if (bankListPrice != None):
-					result.append({ bank: float(bankListPrice) / float(betterPrice) })
+					bankFound = bankFound + 1
+					rate = float(bankListPrice) / float(betterPrice)
+					result.append({ bank : rate,
+					'ad': specific_ad})
+					bankPriceAcumulator = (float(bankPriceAcumulator) + float(rate))
+			
+			print('bankPriceAcumulator' + str(bankPriceAcumulator))
+			print('bankFound' + str(bankFound))
+			bankPriceAverage = bankPriceAcumulator / bankFound
 
-			return jsonify(result)
+			return jsonify(betterPrice=betterPrice,
+			source=source,
+			average=bankPriceAverage,
+			banks=result)

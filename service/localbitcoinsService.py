@@ -46,14 +46,15 @@ class localbitcoinsService:
 			duration_in_s = difference.total_seconds() 
 			minutes = divmod(duration_in_s, 60)[0]
 
-			if ad['data']['min_amount'] != None and ad['data']['max_amount'] != None and bank_name in ad['data']['bank_name'] and min_amount >= int(ad['data']['min_amount']) and float(temp_price) < float(ad['data']['temp_price']) and minutes <= 30:
+			if ad['data']['min_amount'] != None and ad['data']['max_amount'] != None and bank_name in ad['data']['bank_name'] and int(min_amount) >= int(ad['data']['min_amount']) and float(temp_price) < float(ad['data']['temp_price']) and minutes <= 30:
 				temp_price = ad['data']['temp_price']
+				specific_ad = ad['actions']['public_view']
 		
-		return temp_price
+		return temp_price, specific_ad
 
 	@classmethod
-	def getCLPPage(self):
-		url = 'https://localbitcoins.com/buy-bitcoins-online/clp/.json'
+	def getLocalMarketPage(self, market):
+		url = f'https://localbitcoins.com/buy-bitcoins-online/{market}/.json'
 		page = 1
 		args = { 'page': page }
 		response = requests.get(url, args)
@@ -78,8 +79,11 @@ class localbitcoinsService:
 					difference = now - timezone_date_time_obj
 					duration_in_s = difference.total_seconds() 
 					minutes = divmod(duration_in_s, 60)[0]
+					country_amount = 300000
+					if market.casefold() == "pen":
+						country_amount = 100
 
-					if float(ad['data']['temp_price']) < float(temp_price) and ad['data']['min_amount'] != None and ad['data']['max_amount'] != None and float(ad['data']['min_amount']) <= 300000 <= float(ad['data']['max_amount']) and minutes <= 30 and int(ad['data']['profile']['feedback_score']) > 95:
+					if float(ad['data']['temp_price']) < float(temp_price) and ad['data']['min_amount'] != None and ad['data']['max_amount'] != None and float(ad['data']['min_amount']) <= country_amount <= float(ad['data']['max_amount']) and minutes <= 30 and int(ad['data']['profile']['feedback_score']) > 95:
 						if ad['data']['online_provider']=='SPECIFIC_BANK' or ad['data']['online_provider'] =='NATIONAL_BANK':
 							temp_price = ad['data']['temp_price']
 		
