@@ -1,6 +1,6 @@
 import requests
 
-class budaService:
+class BudaService:
 
 	@classmethod
 	def budaPrice(self, market):

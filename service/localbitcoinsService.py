@@ -2,7 +2,7 @@ import requests
 import datetime as dt
 import pytz
 
-class localbitcoinsService:
+class LocalbitcoinsService:
 
 	@classmethod
 	def getVESPage(self, pageNumber ):
@@ -83,8 +83,12 @@ class localbitcoinsService:
 					if market.casefold() == "pen":
 						country_amount = 100
 
-					if float(ad['data']['temp_price']) < float(temp_price) and ad['data']['min_amount'] != None and ad['data']['max_amount'] != None and float(ad['data']['min_amount']) <= country_amount <= float(ad['data']['max_amount']) and minutes <= 30 and int(ad['data']['profile']['feedback_score']) > 95:
-						if ad['data']['online_provider']=='SPECIFIC_BANK' or ad['data']['online_provider'] =='NATIONAL_BANK':
+					if float(ad['data']['temp_price']) < float(temp_price) and \
+						ad['data']['min_amount'] != None and \
+						ad['data']['max_amount_available'] != None and \
+						float(ad['data']['min_amount']) <= country_amount <= float(ad['data']['max_amount_available']) and \
+						minutes <= 30 and int(ad['data']['profile']['feedback_score']) > 95 and \
+						(ad['data']['online_provider']=='SPECIFIC_BANK' or ad['data']['online_provider'] =='NATIONAL_BANK'):
 							temp_price = ad['data']['temp_price']
 		
 				return temp_price
