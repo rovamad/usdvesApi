@@ -114,9 +114,11 @@ class ExchangeRateService:
                         '6%': round((bankPriceAverage * 0.94), 4),
                         }
                 elif (market == 'cop'):
+                    colFormat = round((1/(bankPriceAverage * 0.88)),4)
                     recomended = {
                             '12%': round((bankPriceAverage * 0.88), 4),
-                            'col format': round((1/(bankPriceAverage * 0.88)),4)
+                            'col format': colFormat,
+                            '100.000/colformat': round(100000/colFormat, 4)
                             }
                 elif (market == 'pen'):
                     recomended = {
