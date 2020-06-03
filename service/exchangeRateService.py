@@ -55,7 +55,7 @@ class ExchangeRateService:
     @classmethod
     def ppbrates(self, bankList, marketList):
 
-        rates = []
+        rates = {}
         for market in marketList:
 
             budaPrice = buda.budaPrice(market)
@@ -91,7 +91,7 @@ class ExchangeRateService:
                 bankPriceAcumulator = 0
                 bankFound = 0
 
-                minAmount=60000000
+                minAmount=70000000
                 if (market != 'clp'):
                     minAmount=15000000
 
@@ -109,27 +109,23 @@ class ExchangeRateService:
                 recomended = ''
                 if (market == 'clp'):
                     recomended = {
-                        '10%': "{0:.4f}".format((bankPriceAverage * 0.9)),
-                        '8%': "{0:.4f}".format((bankPriceAverage * 0.92)),
-                        '6%': "{0:.4f}".format((bankPriceAverage * 0.94)),
+                        '10%': round((bankPriceAverage * 0.9),4),
+                        '8%': round((bankPriceAverage * 0.92),4),
+                        '6%': round((bankPriceAverage * 0.94), 4),
                         }
                 elif (market == 'cop'):
                     recomended = {
-                            '12%': (bankPriceAverage * 0.88),
-                            'col format': "{0:.4f}".format(1/(bankPriceAverage * 0.88))
+                            '12%': round((bankPriceAverage * 0.88), 4),
+                            'col format': round((1/(bankPriceAverage * 0.88)),4)
                             }
                 elif (market == 'pen'):
                     recomended = {
-                            '5%': ("{0:.4f}".format(bankPriceAverage * 0.95))
+                            '5%': round((bankPriceAverage * 0.95),4)
                             }
 
-                rates.append(
-                        {
-                            market: {
-                                'average': bankPriceAverage,
+                rates[market] = {
+                                'average': round((bankPriceAverage),4),
                                 'recomended': recomended
                                 }
-                        }
-                    )
         
         return jsonify(rates)
