@@ -32,6 +32,7 @@ class LocalbitcoinsService:
     def createBankList(self, bank_name, min_amount, ad_list):
 
         temp_price = 0
+        specific_ad = ''
         now = dt.datetime.now(pytz.utc)
 
         for ad in ad_list:

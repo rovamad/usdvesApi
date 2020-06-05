@@ -39,7 +39,7 @@ class ExchangeRateService:
             bankFound = 0
             for bank in bankList:
                 bankListPrice, specific_ad = localbit.createBankList(bank, minAmount, ad_list)
-                if (bankListPrice != None):
+                if (bankListPrice != 0 and specific_ad != ''):
                     bankFound = bankFound + 1
                     rate = float(bankListPrice) / float(betterPrice)
                     result.append({ bank : rate,
@@ -97,7 +97,7 @@ class ExchangeRateService:
 
                 for bank in bankList:
                     bankListPrice, specific_ad = localbit.createBankList(bank, minAmount, ad_list)
-                    if (bankListPrice != None):
+                    if (bankListPrice != 0 and specific_ad != ''):
                         bankFound = bankFound + 1
                         rate = float(bankListPrice) / float(betterPrice)
                         result.append({ bank : rate,
