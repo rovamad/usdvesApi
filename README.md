@@ -1,0 +1,1 @@
+Run it locally with ```pipenv run python ./controller/ExchangeRateController.py```
