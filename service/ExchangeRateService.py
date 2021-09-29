@@ -109,20 +109,20 @@ class ExchangeRateService:
                 recomended = ''
                 if (market == 'clp'):
                     recomended = {
-                        '10%': round((bankPriceAverage * 0.9),4),
-                        '8%': round((bankPriceAverage * 0.92),4),
-                        '6%': round((bankPriceAverage * 0.94), 4),
+                        '7.5%': round((bankPriceAverage * 0.925),4),
+                        '6.5%': round((bankPriceAverage * 0.935),4),
+                        '4.5%': round((bankPriceAverage * 0.955), 4),
                         }
                 elif (market == 'cop'):
-                    colFormat = round((1/(bankPriceAverage * 0.88)),4)
+                    colFormat = round((1/(bankPriceAverage * 0.99)),4)
                     recomended = {
-                            '12%': round((bankPriceAverage * 0.88), 4),
+                            '9%': round((bankPriceAverage * 0.99), 4),
                             'col format': colFormat,
                             '100.000/colformat': round(100000/colFormat, 4)
                             }
                 elif (market == 'pen'):
                     recomended = {
-                            '5%': round((bankPriceAverage * 0.95),4)
+                            '4%': round((bankPriceAverage * 0.96),4)
                             }
 
                 rates[market] = {

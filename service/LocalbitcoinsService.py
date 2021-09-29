@@ -6,7 +6,7 @@ class LocalbitcoinsService:
 
     @classmethod
     def getVESPage(self, pageNumber ):
-        url = 'https://localbitcoins.com/es/sell-bitcoins-online/ves/.json'
+        url = 'https://localbitcoins.com/es/vender-bitcoins-online/ves/.json'
         args = { 'page': pageNumber }
         response = requests.get(url, args)
 

@@ -16,9 +16,11 @@ class BudaService:
                 'amount': amount
             })
 
-            response_json = response.json()
-            price = (float(response_json['quotation']['quote_exchanged'][0]) / amount) * 1.012
-            print('Buda.com BTC in ' + market + ' price is ' + str(price))
+            if response.status_code == 201:
+                response_json = response.json()
+                price = (float(response_json['quotation']['quote_exchanged'][0]) / amount) * 1.012
+                print('Buda.com BTC in ' + market + ' price is ' + str(price))
+        
         except requests.exceptions.RequestException as e:
             print('Error getting Buda.com price')
             print(e.args)
