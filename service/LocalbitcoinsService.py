@@ -19,7 +19,7 @@ class LocalbitcoinsService:
     def nextPage(self, ad_list, pagination, page):
 
             page = page + 1
-            json = self.getVESPage(page)
+            json = self.getVEDPage(page)
             ad_list = ad_list + json['data']['ad_list']
             
             return {
