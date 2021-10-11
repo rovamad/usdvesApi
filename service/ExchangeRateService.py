@@ -18,7 +18,7 @@ class ExchangeRateService:
 
         print('betterPrice is ' + str(betterPrice))
         page = 1
-        json = localbit.getVESPage(page)
+        json = localbit.getVEDPage(page)
         if 'data' in json:
             ad_list = json['data']['ad_list']
             pagination = json['pagination']
