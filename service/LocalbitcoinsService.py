@@ -5,8 +5,8 @@ import pytz
 class LocalbitcoinsService:
 
     @classmethod
-    def getVESPage(self, pageNumber ):
-        url = 'https://localbitcoins.com/es/vender-bitcoins-online/ves/.json'
+    def getVEDPage(self, pageNumber ):
+        url = 'https://localbitcoins.com/es/vender-bitcoins-online/ved/.json'
         args = { 'page': pageNumber }
         response = requests.get(url, args)
 
